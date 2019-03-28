@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <script src="BankingLoan.js"></</script>
+        <script>
+            function monthOptionHelper(e){
+                document.write("<option>"+e+"</option>");
+            }
+            function upDateLoanUI(){
+                var loanDataCells=document.getElementsByClassName("loanDataCell");
+                //alert(loanDataCells.length);
+                for(i in loanDataCells){
+                    var prop=loanDataCells[i].id;
+                    loanDataCells[i].innerText=loanObject[prop];
+                }
+                updateRepaymentUI();
+            }
+            
+            function updateRepaymentUI(){
+                //var repayment1=new Repayment("Jan", 2018, 5000.00);
+                //loanObject.addRepayment(repayment1);
+
+                var repaymentRows=document.getElementsByClassName("repaymentDataRow");
+                for(repaymentIndex in loanObject.repayments){
+                    var repayment=loanObject.repayments[repaymentIndex];
+                    var row=repaymentRows[repaymentIndex];
+                    var dataCells=row.getElementsByClassName("repaymentDataCell");
+                    dataCells[0].innerText=repayment.PaymentMonth;
+                    dataCells[1].innerText=repayment.PaymentYear;
+                    dataCells[2].innerText=repayment.PaymentAmount;
+                }
+            }
+            function updateLoanModel(){
+                var monthInput=document.forms[0].elements[0].value;
+                var yearInput=document.forms[0].elements[1].value;
+                yearInput=parseInt(yearInput);
+                if(isNaN(yearInput))
+                return ;
+
+                var amountInput=document.forms[0].elements[2].value;
+                amountInput=parseFloat(amountInput);
+
+                if(isNaN(amountInput))
+                return ;
+
+                var newPayment=new Repayment(monthInput,yearInput,amountInput);
+                loanObject.addRepayment(newPayment);
+                upDateLoanUI();
+
+            }
+        </script>
+        <style>
+            body{
+                margin:1cm;
+            }
+            #loanDataTable{
+                width:50%;
+                height:5cm;
+                border:solid thin black;
+                margin:5mm;
+                border-collapse: collapse;
+            }
+            #repaymentDataTable{
+                width:50%;
+                height:7cm;
+                border:solid thin black;
+                margin:5mm;
+                border-collapse: collapse;
+            }
+            #inputTable{
+                width:50%;
+                height:2cm;
+                border:solid thin black;
+                margin:5mm;
+                border-collapse: collapse;
+            }
+            td{
+                border:solid thin black;
+            }
+            th{
+                background-color: darkgreen;
+                color:white;
+            }
+        </style>
+    </head>
+    <body onload="upDateLoanUI()">
+        <table id="loanDataTable" border="1">
+            <tr>
+                <td>Customer Name</td>
+                <td id="customer Name" class="loanDataCell"></td>
+            </tr>
+            <tr>
+                <td>Loan Amount</td>
+                <td id="loan Amount" class="loanDataCell"></td>
+            </tr>
+            <tr>
+                <td>Interest Rate</td>
+                <td id="interestRate" class="loanDataCell"></td>
+            </tr>
+            <tr>
+                <td>Duration</td>
+                <td id="duration" class="loanDataCell"></td>
+            </tr>
+        </table>
+        <table id="inputTable">
+            <form>
+                <tr>
+                    <td>
+                        <label>Month</label><br/>
+                        <select>
+                            <script>
+                                    var months=["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                    months.forEach(monthOptionHelper);
+                            </script>
+                        </select>
+                    </td>
+                    <td>
+                        <label>Year</label><br/>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <label>Amount</label><br/>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <input type="button" value="ADD AS REPAYMENT" onclick="updateLoanModel()">
+                    </td>
+                </tr>
+            </form>
+        </table>
+        <table id="repaymentDataTable" border="1">
+            <tr>
+                <th>SINO</th>
+                <th>Month and Year</th>
+                <th>Amount</th>
+            </tr>
+            <tr  class="repaymentDataRow">
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+            </tr>
+            <tr class="repaymentDataRow">
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+            </tr>
+            <tr class="repaymentDataRow">
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+            </tr>
+            <tr class="repaymentDataRow">
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+            </tr>
+            <tr class="repaymentDataRow">
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+                <td class="repaymentDataCell"></td>
+            </tr>
+        </table>
+    </body>
+</html>
